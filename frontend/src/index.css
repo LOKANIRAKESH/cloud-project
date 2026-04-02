@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    @apply bg-bg text-slate-200 font-sans antialiased;
+    background-image:
+      radial-gradient(ellipse at 70% -10%, rgba(0,217,166,.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 5% 90%,  rgba(99,102,241,.06) 0%, transparent 50%),
+      linear-gradient(rgba(30,45,69,.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,45,69,.12) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  }
+}
+
+@layer components {
+
+  /* ─── Glass card ─── */
+  .glass {
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(30,45,69,.8);
+    box-shadow: 0 4px 24px rgba(0,0,0,.35);
+  }
+
+  /* ─── Section panel ─── */
+  .panel {
+    @apply bg-panel border border-border rounded-2xl shadow-card;
+  }
+
+  /* ─── Gradient text ─── */
+  .text-gradient {
+    background: linear-gradient(135deg, #00d9a6 0%, #6366f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── Gauge paths ─── */
+  .gauge-track {
+    fill: none; stroke: #1e2d45; stroke-width: 12; stroke-linecap: round;
+  }
+  .gauge-fill {
+    fill: none; stroke-width: 12; stroke-linecap: round;
+    stroke: url(#gGrad);
+    transition: stroke-dashoffset .9s cubic-bezier(.4,0,.2,1);
+    filter: drop-shadow(0 0 8px rgba(0,217,166,.5));
+  }
+
+  /* ─── Scan line ─── */
+  .scan-line {
+    @apply absolute left-0 right-0 h-px pointer-events-none;
+    background: linear-gradient(90deg, transparent 0%, #00d9a6 50%, transparent 100%);
+    animation: scan 2.2s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(0,217,166,.6);
+  }
+
+  /* ─── Status dots ─── */
+  .dot-live  { @apply inline-block w-2 h-2 rounded-full bg-lo animate-blink; filter: drop-shadow(0 0 4px #3fb950); }
+  .dot-brand { @apply inline-block w-2 h-2 rounded-full bg-brand animate-blink; }
+
+  /* ─── Pill / tag ─── */
+  .pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium
+           bg-card border border-border text-muted;
+  }
+
+  /* ─── Shimmer skeleton ─── */
+  .skeleton {
+    background: linear-gradient(90deg, #1a2235 25%, #1e2d45 50%, #1a2235 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+    border-radius: 6px;
+  }
+
+  /* Tab button */
+  .tab {
+    @apply px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 text-muted;
+  }
+  .tab.active {
+    background-color: rgba(0, 217, 166, 0.15);
+    @apply text-brand;
+  }
+  .tab:not(.active):hover {
+    @apply text-slate-200 bg-card;
+  }
+
+  /* ─── Stat card ─── */
+  .stat-card {
+    @apply bg-card border border-border rounded-xl p-4 flex flex-col gap-1;
+  }
+
+  /* ─── Badge ─── */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold;
+  }
+  .badge-hi  { @apply badge bg-hi/15 text-hi border border-hi/25; }
+  .badge-mid { @apply badge bg-mid/15 text-mid border border-mid/25; }
+  .badge-lo  { @apply badge bg-lo/15 text-lo border border-lo/25; }
+  .badge-pos { @apply badge bg-lo/15 text-lo border border-lo/25; }
+  .badge-neg { @apply badge bg-hi/15 text-hi border border-hi/25; }
+  .badge-neu { @apply badge bg-muted/10 text-muted border border-muted/20; }
+  .badge-mix { @apply badge bg-mid/15 text-mid border border-mid/25; }
+}
+
+@keyframes scan {
+  0%   { top:4%;  opacity:0 }
+  8%   { opacity:1 }
+  92%  { opacity:1 }
+  100% { top:96%; opacity:0 }
+}
+
+@keyframes blink {
+  0%,100% { opacity:1 }
+  50%     { opacity:.2 }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e2d45; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #30363d; }
