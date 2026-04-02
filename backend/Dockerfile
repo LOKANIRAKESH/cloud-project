@@ -15,4 +15,6 @@ COPY . .
 EXPOSE 8000
 
 # Start FastAPI app
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Render (and many PaaS) inject a PORT env var at runtime.
+# Use it if present, otherwise default to 8000.
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]
