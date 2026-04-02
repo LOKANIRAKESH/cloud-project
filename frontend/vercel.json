@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://cloud-project-jtlj.onrender.com/api/$1"
+    }
+  ]
+}
